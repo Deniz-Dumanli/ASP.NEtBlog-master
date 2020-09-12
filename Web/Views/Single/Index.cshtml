@@ -1,0 +1,85 @@
+﻿@model ModelMakale
+<div id="colorlib-main">
+    <section class="ftco-section ftco-no-pt ftco-no-pb">
+        <div class="container">
+            <div class="row d-flex">
+                <div class="col-lg-12 px-md-5 py-5">
+                    <div class="row pt-md-4">
+                        <h1 class="mb-3">@Model.makale.baslik</h1>
+                        <p>@Model.makale.aciklama</p>
+                        <div class="tag-widget post-tag-container mb-5 mt-5 col-md-12">
+                            <div class="tagcloud">
+                                <a class="tag-cloud-link">@Model.makale.etiket</a>
+
+                            </div>
+                        </div>
+
+
+                        <div class="about-author d-flex p-4 bg-light col-md-12">
+                            <div class="bio mr-5">
+                            </div>
+                            <div class="desc">
+                                <h3>@Model.makale.yazar</h3>
+
+                                <p>@Model.makale.yazaraciklama</p>
+                            </div>
+                        </div>
+
+
+                        <div class="pt-5 mt-5">
+                            <h3 class="mb-5 font-weight-bold">@Model.makale.yorumSayisi Yorum</h3>
+                            <ul class="comment-list">
+                                @if (@Model.makale.yorumSayisi!=0){
+
+
+@foreach (var i in Model.yorumlar)
+{
+    <li class="comment">
+
+        <div class="comment-body">
+            <h3>@i.User</h3>
+            <p>@i.Yorum</p>
+            <div class="meta">@i.Date</div>
+
+        </div>
+    </li>
+}
+
+                                }
+
+
+                            </ul>
+                            <!-- END comment-list -->
+
+                            <div class="comment-form-wrap pt-5">
+                                <h3 class="mb-5">Yorum Yap</h3>
+
+
+                                @using (Html.BeginForm("Index", "Single", FormMethod.Post, new { @class = "p-3 p-md-5 bg-light" }))
+                                {
+                                    <div class="form-group">
+                                        <label for="email">Email *</label>
+                                        @Html.TextBoxFor(model => Model.YorumSubmit.email)
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Şifre *</label>
+                                        @Html.PasswordFor(Model => Model.YorumSubmit.password)
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message">Message</label>
+                                        @Html.TextAreaFor(model => Model.YorumSubmit.message)
+                                    </div>
+                                    <input type="submit" value="Paylaş" class="btn py-3 px-4 btn-primary" onclick="paylas">
+                                }
+
+
+
+
+                            </div>
+                        </div>
+                    </div><!-- END-->
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
